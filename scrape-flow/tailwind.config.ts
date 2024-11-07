@@ -97,10 +97,16 @@ const config: Config = {
             height: "0",
           },
         },
+        tilt: {
+          "0%, 50%, 100%": { transform: "rotate(0deg)" },
+          "25%": { transform: "rotate(1.5deg)" },
+          "75%": { transform: "rotate(-1.5deg)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        tilt: "tilt 3s linear infinite",
       },
     },
   },
