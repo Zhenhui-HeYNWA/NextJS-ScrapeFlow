@@ -40,7 +40,7 @@ function NodeCard({
             duration: 500,
           });
         }}
-        className="order-separate relative flex h-[98%] w-[98%] cursor-pointer flex-col justify-center gap-1 rounded-md bg-background p-2 text-xs"
+        className="order-separate relative flex h-[98%] w-[98%] cursor-pointer flex-col justify-center gap-1 rounded-lg bg-background text-xs"
       >
         {children}
       </div>
