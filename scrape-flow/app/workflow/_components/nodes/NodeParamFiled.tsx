@@ -1,11 +1,11 @@
 "use client";
 
-import { Input } from "@/components/ui/input";
 import { TaskParam, TaskParamType } from "@/types/task";
 import StringParam from "@/app/workflow/_components/nodes/param/StringParam";
 import { useReactFlow } from "@xyflow/react";
 import { AppNode } from "@/types/appNode";
 import { useCallback } from "react";
+import BrowserInstanceParam from "@/app/workflow/_components/nodes/param/BrowserInstanceParam";
 
 function NodeParamFiled({
   param,
@@ -38,6 +38,14 @@ function NodeParamFiled({
         <StringParam
           param={param}
           value={value}
+          updateNodeParamValue={updateNodeParamValue}
+        />
+      );
+    case TaskParamType.BROWSER_INSTANCE:
+      return (
+        <BrowserInstanceParam
+          param={param}
+          value={""}
           updateNodeParamValue={updateNodeParamValue}
         />
       );

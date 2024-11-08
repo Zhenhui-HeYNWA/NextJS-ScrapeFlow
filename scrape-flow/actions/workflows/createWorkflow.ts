@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { CreateFlowNode } from "@/lib/workflow/task/createFlowNode";
+import { CreateFlowNode } from "@/lib/workflow/createFlowNode";
 import {
   createWorkflowSchema,
   createWorkflowSchemaType,
