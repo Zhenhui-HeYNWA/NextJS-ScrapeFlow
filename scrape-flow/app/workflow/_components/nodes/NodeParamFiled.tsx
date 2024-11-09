@@ -10,9 +10,11 @@ import BrowserInstanceParam from "@/app/workflow/_components/nodes/param/Browser
 function NodeParamFiled({
   param,
   nodeId,
+  disabled,
 }: {
   param: TaskParam;
   nodeId: string;
+  disabled: boolean;
 }) {
   const { updateNodeData, getNode } = useReactFlow();
 
@@ -39,6 +41,7 @@ function NodeParamFiled({
           param={param}
           value={value}
           updateNodeParamValue={updateNodeParamValue}
+          disabled={disabled}
         />
       );
     case TaskParamType.BROWSER_INSTANCE:
@@ -47,6 +50,7 @@ function NodeParamFiled({
           param={param}
           value={""}
           updateNodeParamValue={updateNodeParamValue}
+          
         />
       );
     default:

@@ -7,12 +7,12 @@ import { ReactNode } from "react";
 import { ColorForHandle } from "@/app/workflow/_components/nodes/common";
 
 export function NodeOutputs({ children }: { children: ReactNode }) {
-  return <div className="flex flex-col gap-1 divide-y">{children}</div>;
+  return <div className="flex flex-col gap-1">{children}</div>;
 }
 
 export function NodeOutput({ output }: { output: TaskParam }) {
   return (
-    <div className="relative flex justify-end bg-secondary p-3">
+    <div className="relative flex justify-end rounded-sm bg-secondary p-3">
       <p className="text-xs text-muted-foreground">{output.name}</p>
       <Handle
         id={output.name}

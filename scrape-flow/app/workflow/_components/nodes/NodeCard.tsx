@@ -15,7 +15,7 @@ function NodeCard({
 }) {
   const { getNode, setCenter } = useReactFlow();
   return (
-    <div className="relative flex h-full w-[422px] items-center justify-center rounded-md">
+    <div className="relative flex h-full w-[422px] items-center justify-center rounded-md shadow-lg">
       <div
         className={cn(
           "absolute inset-0 -translate-x-1 translate-y-1 rounded-lg",
@@ -40,7 +40,7 @@ function NodeCard({
             duration: 500,
           });
         }}
-        className="order-separate relative flex h-[98%] w-[98%] cursor-pointer flex-col justify-center gap-1 rounded-lg bg-background text-xs"
+        className="order-separate relative flex h-[100%] w-[98%] cursor-pointer flex-col justify-center gap-1 rounded-lg bg-background pb-1 text-xs"
       >
         {children}
       </div>

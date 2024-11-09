@@ -18,6 +18,7 @@ export const ExtractTextFromElementTask = {
       // The type of the input
       type: TaskParamType.STRING,
       required: true,
+      variant: "textarea",
     },
     {
       // The name of the input
