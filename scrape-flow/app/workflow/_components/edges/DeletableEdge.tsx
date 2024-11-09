@@ -12,6 +12,7 @@ import {
 export default function DeletableEdge(props: EdgeProps) {
   const [edgePath, labelX, labelY] = getSmoothStepPath(props);
 
+  // The useReactFlow hook gives you access to the graph state and actions.
   const { setEdges } = useReactFlow();
 
   return (
