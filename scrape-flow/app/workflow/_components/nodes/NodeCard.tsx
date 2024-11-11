@@ -1,5 +1,6 @@
 "use client";
 
+import useFlowValidation from "@/components/hooks/useFlowValidation";
 import { cn } from "@/lib/utils";
 import { useReactFlow } from "@xyflow/react";
 import { ReactNode } from "react";
@@ -14,6 +15,8 @@ function NodeCard({
   children: ReactNode;
 }) {
   const { getNode, setCenter } = useReactFlow();
+  const { invalidInputs } = useFlowValidation();
+  const hasInvalidInputs = invalidInputs.some((node) => node.nodeId === nodeId);
   return (
     <div className="relative flex h-full w-[422px] items-center justify-center rounded-md shadow-lg">
       <div
@@ -21,6 +24,8 @@ function NodeCard({
           "absolute inset-0 -translate-x-1 translate-y-1 rounded-lg",
           isSelected &&
             "animate-tilt bg-gradient-to-br from-pink-500 via-cyan-500 to-violet-500 blur",
+          hasInvalidInputs &&
+            "animate-tilt bg-gradient-to-br from-red-300 via-red-800 to-red-950 blur",
         )}
       ></div>
       <div
