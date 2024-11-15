@@ -1,14 +1,14 @@
-import { AppNode, AppNodeMissingInputs } from "@/types/appNode";
+import { AppNode, AppNodeMissingInputs } from '@/types/appNode';
 import {
   WorkflowExecutionPlan,
   WorkflowExecutionPlanPhase,
-} from "@/types/workflow";
-import { Edge } from "@xyflow/react";
-import { TaskRegistry } from "./task/registry";
+} from '@/types/workflow';
+import { Edge } from '@xyflow/react';
+import { TaskRegistry } from './task/registry';
 
 export enum FlowToExecutionPlanValidationError {
-  "NO_ENTRY_POINT",
-  "INVALID_INPUTS",
+  'NO_ENTRY_POINT',
+  'INVALID_INPUTS',
 }
 
 type FlowToExecutionPlanType = {
@@ -34,13 +34,13 @@ export function FlowToExecutionPlan(
     };
   }
 
-  const inputWithError: AppNodeMissingInputs[] = [];
+  const inputWithErrors: AppNodeMissingInputs[] = [];
   const planned = new Set<string>();
 
   const invalidInputs = getInvalidInputs(entryPoint, edges, planned);
 
   if (invalidInputs.length > 0) {
-    inputWithError.push({
+    inputWithErrors.push({
       nodeId: entryPoint.id,
       inputs: invalidInputs,
     });
@@ -76,13 +76,12 @@ export function FlowToExecutionPlan(
           //this means that this particular node has an invalid input
           //which means that the workflow is invalid
 
-          console.error("Invalid inputs", currentNode.id, invalidInputs);
-          if (invalidInputs.length > 0) {
-            inputWithError.push({
-              nodeId: currentNode.id,
-              inputs: invalidInputs,
-            });
-          }
+          console.error('Invalid inputs', currentNode.id, invalidInputs);
+
+          inputWithErrors.push({
+            nodeId: currentNode.id,
+            inputs: invalidInputs,
+          });
         } else {
           //let's skip this node for now
           continue;
@@ -96,11 +95,11 @@ export function FlowToExecutionPlan(
     }
     executionPlan.push(nextPhase);
   }
-  if (inputWithError.length > 0) {
+  if (inputWithErrors.length > 0) {
     return {
       error: {
         type: FlowToExecutionPlanValidationError.INVALID_INPUTS,
-        invalidElements: inputWithError,
+        invalidElements: inputWithErrors,
       },
     };
   }

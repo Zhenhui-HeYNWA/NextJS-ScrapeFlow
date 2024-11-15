@@ -7,7 +7,7 @@ import {
   ExecutionPhaseStatus,
   WorkflowExecutionStatus,
 } from '@/types/workflow';
-import { waitFor } from '../helper/waitFor';
+
 import { ExecutionPhase } from '@prisma/client';
 import { AppNode } from '@/types/appNode';
 import { TaskRegistry } from '@/lib/workflow/task/registry';
@@ -19,7 +19,6 @@ import { Browser, Page } from 'puppeteer';
 
 import { Edge } from '@xyflow/react';
 import { createLogCollector } from '@/lib/log';
-import { time } from 'console';
 
 export async function ExecuteWorkflow(executionId: string) {
   const execution = await prisma.workflowExecution.findUnique({
@@ -256,6 +255,7 @@ function setUpEnvironmentForPhase(
   for (const input of inputs) {
     if (input.type === TaskParamType.BROWSER_INSTANCE) continue;
     const inputValue = node.data.inputs[input.name];
+
     if (inputValue) {
       environment.phases[node.id].inputs[input.name] = inputValue;
       continue;

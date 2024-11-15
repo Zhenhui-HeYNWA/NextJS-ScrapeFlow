@@ -1,10 +1,9 @@
-"use server";
+'use server';
 
-import { waitFor } from "@/lib/helper/waitFor";
-import prisma from "@/lib/prisma";
-import { WorkFlowStatus } from "@/types/workflow";
-import { auth } from "@clerk/nextjs/server";
-import { revalidatePath } from "next/cache";
+import prisma from '@/lib/prisma';
+import { WorkFlowStatus } from '@/types/workflow';
+import { auth } from '@clerk/nextjs/server';
+import { revalidatePath } from 'next/cache';
 
 export async function updateWorkflow({
   id,
@@ -13,10 +12,9 @@ export async function updateWorkflow({
   id: string;
   definition: string;
 }) {
-  await waitFor(2000);
   const { userId } = auth();
   if (!userId) {
-    throw new Error("Unauthorized");
+    throw new Error('Unauthorized');
   }
 
   const workflow = await prisma.workflow.findUnique({
@@ -27,10 +25,10 @@ export async function updateWorkflow({
   });
 
   if (!workflow) {
-    throw new Error("Workflow not found");
+    throw new Error('Workflow not found');
   }
   if (workflow.status !== WorkFlowStatus.DRAFT) {
-    throw new Error("workflow is not a draft");
+    throw new Error('workflow is not a draft');
   }
 
   await prisma.workflow.update({
@@ -43,5 +41,5 @@ export async function updateWorkflow({
     },
   });
 
-  revalidatePath("/workflows");
+  revalidatePath('/workflows');
 }
