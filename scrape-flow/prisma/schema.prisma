@@ -11,14 +11,18 @@ datasource db {
 }
 
 model Workflow {
-  id           String   @id @default(cuid())
+  id           String  @id @default(cuid())
   userId       String
   name         String
   descripetion String?
   definition   String
-  status       String
-  createdAt    DateTime @default(now())
-  updateAt     DateTime @updatedAt
+  status       String //DRAFT|PUBLISHED
+
+  lastRunAt     DateTime?
+  lastRunId     String?
+  lastRunStatus String?
+  createdAt     DateTime  @default(now())
+  updateAt      DateTime  @updatedAt
 
   execution WorkflowExecution[]
 
@@ -35,6 +39,9 @@ model WorkflowExecution {
   createdAt   DateTime  @default(now())
   startedAt   DateTime?
   completedAt DateTime?
+  definition  String    @default("{}")
+
+  creditsConsumed Int @default(0)
 
   phases ExecutionPhase[]
 
@@ -53,9 +60,20 @@ model ExecutionPhase {
   inputs      String?
   outputs     String?
 
-  creditsCost Int?
+  creditsConsumed Int?
 
   workflowExecutionId String
 
   execution WorkflowExecution @relation(fields: [workflowExecutionId], references: [id], onDelete: Cascade)
+
+  logs ExecutionLog[]
+}
+
+model ExecutionLog {
+  id               String         @id @default(cuid())
+  logLevel         String
+  message          String
+  timestamp        DateTime       @default(now())
+  executionPhaseId String
+  executionphase   ExecutionPhase @relation(fields: [executionPhaseId], references: [id], onDelete: Cascade)
 }

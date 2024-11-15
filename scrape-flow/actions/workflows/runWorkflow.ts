@@ -1,16 +1,17 @@
-"use server";
+'use server';
 
-import prisma from "@/lib/prisma";
-import { FlowToExecutionPlan } from "@/lib/workflow/FlowToExecutionPlan";
-import { TaskRegistry } from "@/lib/workflow/task/registry";
+import prisma from '@/lib/prisma';
+import { ExecuteWorkflow } from '@/lib/workflow/exectueWorkflow';
+import { FlowToExecutionPlan } from '@/lib/workflow/FlowToExecutionPlan';
+import { TaskRegistry } from '@/lib/workflow/task/registry';
 import {
   ExecutionPhaseStatus,
   WorkflowExecutionPlan,
   WorkflowExecutionStatus,
   WorkflowExecutionTrigger,
-} from "@/types/workflow";
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+} from '@/types/workflow';
+import { auth } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 
 export async function RunWorkflow(from: {
   workflowId: string;
@@ -18,12 +19,12 @@ export async function RunWorkflow(from: {
 }) {
   const { userId } = auth();
   if (!userId) {
-    throw new Error("unauthenticated");
+    throw new Error('unauthenticated');
   }
 
   const { workflowId, flowDefinition } = from;
   if (!workflowId) {
-    throw new Error("workflowId is required");
+    throw new Error('workflowId is required');
   }
   const workflow = await prisma.workflow.findUnique({
     where: {
@@ -33,12 +34,12 @@ export async function RunWorkflow(from: {
   });
 
   if (!workflow) {
-    throw new Error("workflow not found");
+    throw new Error('workflow not found');
   }
 
   let executionPlan: WorkflowExecutionPlan;
   if (!flowDefinition) {
-    throw new Error("flowDefinition is undefined");
+    throw new Error('flowDefinition is undefined');
   }
 
   const flow = JSON.parse(flowDefinition);
@@ -46,11 +47,11 @@ export async function RunWorkflow(from: {
   const result = FlowToExecutionPlan(flow.nodes, flow.edges);
 
   if (result.error) {
-    throw new Error("Flow definition is invalid");
+    throw new Error('Flow definition is invalid');
   }
 
   if (!result.executionPlan) {
-    throw new Error(" no execution plan  generated");
+    throw new Error(' no execution plan  generated');
   }
 
   executionPlan = result.executionPlan;
@@ -62,6 +63,7 @@ export async function RunWorkflow(from: {
       status: WorkflowExecutionStatus.PENDING,
       startedAt: new Date(),
       trigger: WorkflowExecutionTrigger.MANUAl,
+      definition: flowDefinition,
       phases: {
         create: executionPlan.flatMap((phase) => {
           return phase.nodes.flatMap((node) => {
@@ -83,7 +85,9 @@ export async function RunWorkflow(from: {
   });
 
   if (!execution) {
-    throw new Error("workflow execution not created");
+    throw new Error('workflow execution not created');
   }
+
+  ExecuteWorkflow(execution.id); //run this on background
   redirect(`/workflow/runs/${workflowId}/${execution.id}`);
 }
