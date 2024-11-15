@@ -1,23 +1,24 @@
-"use client";
+'use client';
 import {
   CoinsIcon,
   HomeIcon,
   Layers2Icon,
   MenuIcon,
   ShieldCheckIcon,
-} from "lucide-react";
-import React, { useState } from "react";
-import Logo from "./Logo";
-import Link from "next/link";
-import { Button, buttonVariants } from "./ui/button";
-import { usePathname } from "next/navigation";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+} from 'lucide-react';
+import React, { useState } from 'react';
+import Logo from './Logo';
+import Link from 'next/link';
+import { Button, buttonVariants } from './ui/button';
+import { usePathname } from 'next/navigation';
+import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
+import UserAvailableCreditsBadge from '@/components/UserAvailableCreditsBadge';
 
 const routes = [
-  { href: "", label: "Home", icon: HomeIcon },
-  { href: "workflows", label: "Workflows", icon: Layers2Icon },
-  { href: "credentials", label: "Credentials", icon: ShieldCheckIcon },
-  { href: "billing", label: "Billing", icon: CoinsIcon },
+  { href: '', label: 'Home', icon: HomeIcon },
+  { href: 'workflows', label: 'Workflows', icon: Layers2Icon },
+  { href: 'credentials', label: 'Credentials', icon: ShieldCheckIcon },
+  { href: 'billing', label: 'Billing', icon: CoinsIcon },
 ];
 
 function DesktopSideBar() {
@@ -31,7 +32,9 @@ function DesktopSideBar() {
       <div className="flex border-separate items-center justify-center gap-2 border-b-[1px] p-4">
         <Logo />
       </div>
-      <div className="p-2">TODO CREDITS</div>
+      <div className="p-2">
+        <UserAvailableCreditsBadge />
+      </div>
       <div className="flex flex-col p-2">
         {routes.map((route) => (
           <Link
@@ -40,8 +43,8 @@ function DesktopSideBar() {
             className={buttonVariants({
               variant:
                 activeRoute.href === route.href
-                  ? "sidebarActiveItem"
-                  : "sidebarItem",
+                  ? 'sidebarActiveItem'
+                  : 'sidebarItem',
             })}
           >
             <route.icon size={20} />
@@ -66,15 +69,16 @@ export function MobileSidebar() {
       <nav className="container flex items-center justify-between px-8">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Button variant={"ghost"} size={"icon"}>
+            <Button variant={'ghost'} size={'icon'}>
               <MenuIcon />
             </Button>
           </SheetTrigger>
           <SheetContent
             className="w-[400px] space-y-4 sm:w-[540px]"
-            side={"left"}
+            side={'left'}
           >
             <Logo />
+            <UserAvailableCreditsBadge />
             <div className="flex flex-col gap-1">
               {routes.map((route) => (
                 <Link
@@ -83,8 +87,8 @@ export function MobileSidebar() {
                   className={buttonVariants({
                     variant:
                       activeRoute.href === route.href
-                        ? "sidebarActiveItem"
-                        : "sidebarItem",
+                        ? 'sidebarActiveItem'
+                        : 'sidebarItem',
                   })}
                   onClick={() => setIsOpen((prev) => !prev)}
                 >
