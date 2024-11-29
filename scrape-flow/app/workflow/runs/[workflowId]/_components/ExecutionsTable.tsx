@@ -66,7 +66,9 @@ export default function ExecutionsTable({
                 key={execution.id}
                 className="cursor-pointer"
                 onClick={() => {
-                  router.push(`/workflow/runs/${execution.workflowId}/${execution.id}`);
+                  router.push(
+                    `/workflow/runs/${execution.workflowId}/${execution.id}`,
+                  );
                 }}
               >
                 <TableCell>

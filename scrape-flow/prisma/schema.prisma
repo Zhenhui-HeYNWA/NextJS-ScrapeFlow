@@ -11,18 +11,25 @@ datasource db {
 }
 
 model Workflow {
-  id           String  @id @default(cuid())
-  userId       String
-  name         String
-  descripetion String?
-  definition   String
-  status       String //DRAFT|PUBLISHED
+  id            String  @id @default(cuid())
+  userId        String
+  name          String
+  description   String?
+  definition    String
+  executionPlan String?
+
+  creditsCost Int @default(0)
+
+  cron   String? // 
+  status String //DRAFT|PUBLISHED
 
   lastRunAt     DateTime?
   lastRunId     String?
   lastRunStatus String?
-  createdAt     DateTime  @default(now())
-  updateAt      DateTime  @updatedAt
+  nextRunAt     DateTime?
+
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
 
   execution WorkflowExecution[]
 
@@ -81,4 +88,15 @@ model ExecutionLog {
 model UserBalance {
   userId  String @id
   credits Int    @default(0)
+}
+
+model Credential {
+  id     String @id @default(cuid())
+  userId String
+  name   String
+  value  String
+
+  createdAt DateTime @default(now())
+
+  @@unique([name, userId])
 }
