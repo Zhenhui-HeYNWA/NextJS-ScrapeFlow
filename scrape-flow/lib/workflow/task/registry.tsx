@@ -8,7 +8,7 @@ import { ClickElementTask } from '@/lib/workflow/task/ClickElement';
 import { WaitForElementTask } from '@/lib/workflow/task/WaitForElement';
 import { DeliverViaWebhookTask } from '@/lib/workflow/task/DeliverViaWebhook';
 import { ExtraDataWithAITask } from '@/lib/workflow/task/ExtractDataWithAI';
-import { ReadPropertyFromJsonTask } from '@/lib/workflow/task/ReadPropertyFromJSON';
+import { ReadPropertyFromJsonTask } from '@/lib/workflow/task/ReadPropertyFromJson';
 import { AddPropertyToJsonTask } from '@/lib/workflow/task/AddPropertyToJson';
 import { NavigateUrlTask } from '@/lib/workflow/task/NavigateUrl';
 import { ScrollToElementTask } from '@/lib/workflow/task/ScrollToElement';

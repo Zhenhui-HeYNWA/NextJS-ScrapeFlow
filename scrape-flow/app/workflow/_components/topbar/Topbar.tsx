@@ -42,6 +42,7 @@ export default function TopBar({
             </p>
           )}
         </div>
+        {/* <Button variant={'ghost'}>Close</Button> */}
       </div>
       <NavigationTabs workflowId={workflowId} />
       <div className="flex flex-1 justify-end gap-1">
