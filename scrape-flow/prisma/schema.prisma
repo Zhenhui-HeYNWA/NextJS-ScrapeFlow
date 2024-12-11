@@ -82,7 +82,7 @@ model ExecutionLog {
   message          String
   timestamp        DateTime       @default(now())
   executionPhaseId String
-  executionphase   ExecutionPhase @relation(fields: [executionPhaseId], references: [id], onDelete: Cascade)
+  executionPhase   ExecutionPhase @relation(fields: [executionPhaseId], references: [id], onDelete: Cascade)
 }
 
 model UserBalance {

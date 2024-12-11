@@ -2,7 +2,7 @@ import { GetPeriods } from '@/actions/analytics/getPeriods';
 import React, { Suspense } from 'react';
 import PeriodSelector from '@/app/(dashboard)/(home)/_components/PeriodSelector';
 import { Period } from '@/types/analytics';
-import { waitFor } from '@/lib/helper/waitFor';
+
 import { Skeleton } from '@/components/ui/skeleton';
 import { GetStatsCardsValues } from '@/actions/analytics/getStatsCardsValues';
 import { CirclePlayIcon, CoinsIcon, WaypointsIcon } from 'lucide-react';
